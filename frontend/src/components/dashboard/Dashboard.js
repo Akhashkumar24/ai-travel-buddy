@@ -8,7 +8,7 @@ import {
   MapIcon, 
   ClockIcon, 
   CurrencyDollarIcon,
-  WeatherIcon,
+  SunIcon,  // Changed from WeatherIcon to SunIcon
   ChatBubbleLeftRightIcon 
 } from '@heroicons/react/24/outline';
 
@@ -227,7 +227,7 @@ const Dashboard = () => {
               <motion.div variants={itemVariants}>
                 <div className="bg-white rounded-lg shadow-sm p-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                    <WeatherIcon className="w-5 h-5 mr-2 text-blue-500" />
+                    <SunIcon className="w-5 h-5 mr-2 text-blue-500" />
                     Upcoming Weather
                   </h3>
                   <WeatherWidget trip={upcomingTrips[0]} />
@@ -249,7 +249,7 @@ const Dashboard = () => {
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Countries Visited</span>
                     <span className="font-semibold text-gray-900">
-                      {new Set(trips.map(t => t.destination.country)).size}
+                      {new Set(trips.map(t => t.destination?.country)).size}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">

@@ -17,7 +17,6 @@ import ItineraryView from './components/itinerary/ItineraryView';
 import Profile from './components/profile/Profile';
 import ChatBot from './components/chat/ChatBot';
 
-import './App.css';
 import './styles/globals.css';
 
 const queryClient = new QueryClient({
