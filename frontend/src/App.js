@@ -1,24 +1,19 @@
-// frontend/src/App.js - Fixed to remove logo issues
+// src/App.js - Redesigned without authentication
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Toaster } from 'react-hot-toast';
-import { AuthProvider, useAuth } from './hooks/useAuth';
 
 // Import components
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import LoadingSpinner from './components/common/LoadingSpinner';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Dashboard from './components/dashboard/Dashboard';
+import Home from './components/pages/Home';
 import TripPlanner from './components/trip-planning/TripPlanner';
-import ItineraryView from './components/itinerary/ItineraryView';
-import Profile from './components/profile/Profile';
+import ExploreDestinations from './components/pages/ExploreDestinations';
+import TravelTools from './components/pages/TravelTools';
+import AboutPage from './components/pages/About';
 import ChatBot from './components/chat/ChatBot';
 
-// Remove App.css import that's causing issues
-// import './App.css'; // REMOVED
 import './styles/globals.css';
 
 const queryClient = new QueryClient({
@@ -31,149 +26,75 @@ const queryClient = new QueryClient({
   },
 });
 
-// Protected Route Component
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="large" />
-      </div>
-    );
-  }
-
-  return user ? children : <Navigate to="/login" replace />;
-};
-
-// Public Route Component
-const PublicRoute = ({ children }) => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="large" />
-      </div>
-    );
-  }
-
-  return user ? <Navigate to="/dashboard" replace /> : children;
-};
-
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Router>
-          <div className="min-h-screen bg-gray-50 flex flex-col">
-            <Toaster
-              position="top-right"
-              toastOptions={{
-                duration: 4000,
-                style: {
-                  background: '#363636',
-                  color: '#fff',
+      <Router>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex flex-col">
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: '#363636',
+                color: '#fff',
+                borderRadius: '12px',
+                padding: '16px',
+              },
+              success: {
+                duration: 3000,
+                iconTheme: {
+                  primary: '#4ade80',
+                  secondary: '#fff',
                 },
-                success: {
-                  duration: 3000,
-                  theme: {
-                    primary: '#4ade80',
-                    secondary: '#black',
-                  },
-                },
-              }}
-            />
-            
-            <Header />
-            
-            <main className="flex-1">
-              <Routes>
-                {/* Public Routes */}
-                <Route 
-                  path="/login" 
-                  element={
-                    <PublicRoute>
-                      <Login />
-                    </PublicRoute>
-                  } 
-                />
-                <Route 
-                  path="/register" 
-                  element={
-                    <PublicRoute>
-                      <Register />
-                    </PublicRoute>
-                  } 
-                />
-                
-                {/* Protected Routes */}
-                <Route 
-                  path="/dashboard" 
-                  element={
-                    <ProtectedRoute>
-                      <Dashboard />
-                    </ProtectedRoute>
-                  } 
-                />
-                <Route 
-                  path="/plan-trip" 
-                  element={
-                    <ProtectedRoute>
-                      <TripPlanner />
-                    </ProtectedRoute>
-                  } 
-                />
-                <Route 
-                  path="/trip/:id" 
-                  element={
-                    <ProtectedRoute>
-                      <ItineraryView />
-                    </ProtectedRoute>
-                  } 
-                />
-                <Route 
-                  path="/profile" 
-                  element={
-                    <ProtectedRoute>
-                      <Profile />
-                    </ProtectedRoute>
-                  } 
-                />
-                
-                {/* Default redirect */}
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                
-                {/* 404 */}
-                <Route 
-                  path="*" 
-                  element={
-                    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-                      <div className="text-center">
-                        <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
-                        <p className="text-xl text-gray-600 mb-8">Page not found</p>
-                        <a 
-                          href="/dashboard" 
-                          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        >
-                          Go to Dashboard
-                        </a>
-                      </div>
+              },
+            }}
+          />
+          
+          <Header />
+          
+          <main className="flex-1">
+            <Routes>
+              {/* Main Routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/plan-trip" element={<TripPlanner />} />
+              <Route path="/explore" element={<ExploreDestinations />} />
+              <Route path="/tools" element={<TravelTools />} />
+              <Route path="/about" element={<AboutPage />} />
+              
+              {/* Default redirect */}
+              <Route path="/dashboard" element={<Navigate to="/" replace />} />
+              
+              {/* 404 */}
+              <Route 
+                path="*" 
+                element={
+                  <div className="min-h-screen flex items-center justify-center">
+                    <div className="text-center space-y-6">
+                      <div className="text-8xl">🗺️</div>
+                      <h1 className="text-4xl font-bold text-gray-900">Lost in Space</h1>
+                      <p className="text-xl text-gray-600 max-w-md">
+                        Looks like this page doesn't exist. Let's get you back on track!
+                      </p>
+                      <a 
+                        href="/" 
+                        className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
+                      >
+                        Go Home
+                      </a>
                     </div>
-                  } 
-                />
-              </Routes>
-            </main>
-            
-            <Footer />
-            
-            {/* Floating Chat Bot */}
-            <ProtectedRoute>
-              <ChatBot />
-            </ProtectedRoute>
-          </div>
-        </Router>
-      </AuthProvider>
+                  </div>
+                } 
+              />
+            </Routes>
+          </main>
+          
+          <Footer />
+          
+          {/* Floating Chat Bot */}
+          <ChatBot />
+        </div>
+      </Router>
     </QueryClientProvider>
   );
 }
