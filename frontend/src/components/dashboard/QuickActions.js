@@ -1,14 +1,12 @@
-// src/components/dashboard/QuickActions.js
+// src/components/dashboard/QuickActions.js - Fixed
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   PlusIcon,
   MapIcon,
-  ChatBubbleLeftRightIcon,
   SunIcon,
-  CurrencyDollarIcon,
-  LanguageIcon
+  CurrencyDollarIcon
 } from '@heroicons/react/24/outline';
 
 const QuickActions = () => {

@@ -1,4 +1,4 @@
-// src/components/dashboard/Dashboard.js
+// src/components/dashboard/Dashboard.js - Fixed
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
@@ -7,9 +7,7 @@ import {
   PlusIcon, 
   MapIcon, 
   ClockIcon, 
-  CurrencyDollarIcon,
-  SunIcon,  // Changed from SunIcon to SunIcon
-  ChatBubbleLeftRightIcon 
+  SunIcon
 } from '@heroicons/react/24/outline';
 
 import { apiService } from '../../services/api';
@@ -78,7 +76,13 @@ const Dashboard = () => {
     }
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner size="large" />
+      </div>
+    );
+  }
 
   if (error) {
     return (

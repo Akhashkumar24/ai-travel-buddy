@@ -1,4 +1,4 @@
-// src/components/dashboard/TripCard.js
+// src/components/dashboard/TripCard.js - Complete
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -13,8 +13,21 @@ import {
 } from '@heroicons/react/24/outline';
 
 const TripCard = ({ trip, isCurrentTrip = false }) => {
-  const formatDate = (date) => format(new Date(date), 'MMM dd, yyyy');
-  const tripDuration = differenceInDays(new Date(trip.endDate), new Date(trip.startDate)) + 1;
+  const formatDate = (date) => {
+    try {
+      return format(new Date(date), 'MMM dd, yyyy');
+    } catch (error) {
+      return 'Invalid Date';
+    }
+  };
+  
+  const tripDuration = (() => {
+    try {
+      return differenceInDays(new Date(trip.endDate), new Date(trip.startDate)) + 1;
+    } catch (error) {
+      return 0;
+    }
+  })();
   
   const getStatusColor = (status) => {
     const colors = {
@@ -47,14 +60,14 @@ const TripCard = ({ trip, isCurrentTrip = false }) => {
         {trip.coverImage ? (
           <img 
             src={trip.coverImage} 
-            alt={trip.destination.name}
+            alt={trip.destination?.name || 'Trip destination'}
             className="w-full h-full object-cover"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <div className="text-center text-white">
               <MapPinIcon className="w-12 h-12 mx-auto mb-2 opacity-80" />
-              <h3 className="text-xl font-semibold">{trip.destination.name}</h3>
+              <h3 className="text-xl font-semibold">{trip.destination?.name || 'Unknown Destination'}</h3>
             </div>
           </div>
         )}
@@ -110,20 +123,21 @@ const TripCard = ({ trip, isCurrentTrip = false }) => {
         <div className="space-y-2 mb-4">
           <div className="flex items-center text-sm text-gray-600">
             <MapPinIcon className="w-4 h-4 mr-2 flex-shrink-0" />
-            <span className="truncate">{trip.destination.name}</span>
+            <span className="truncate">{trip.destination?.name || 'Unknown'}</span>
           </div>
           
           <div className="flex items-center text-sm text-gray-600">
             <CalendarIcon className="w-4 h-4 mr-2 flex-shrink-0" />
             <span>
-              {formatDate(trip.startDate)} - {formatDate(trip.endDate)} ({tripDuration} days)
+              {formatDate(trip.startDate)} - {formatDate(trip.endDate)} 
+              {tripDuration > 0 && ` (${tripDuration} days)`}
             </span>
           </div>
           
           <div className="flex items-center text-sm text-gray-600">
             <CurrencyDollarIcon className="w-4 h-4 mr-2 flex-shrink-0" />
             <span>
-              {trip.budget.total > 0 
+              {trip.budget?.total > 0 
                 ? `${trip.budget.currency} ${trip.budget.total.toLocaleString()}`
                 : 'Budget not set'
               }
@@ -147,7 +161,14 @@ const TripCard = ({ trip, isCurrentTrip = false }) => {
         {trip.status === 'confirmed' && (
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-600">
-              {differenceInDays(new Date(trip.startDate), new Date())} days to go
+              {(() => {
+                try {
+                  const daysToGo = differenceInDays(new Date(trip.startDate), new Date());
+                  return daysToGo > 0 ? `${daysToGo} days to go` : 'Starting soon!';
+                } catch (error) {
+                  return 'Starting soon!';
+                }
+              })()}
             </span>
             <Link
               to={`/trip/${trip.id}`}
@@ -170,7 +191,13 @@ const TripCard = ({ trip, isCurrentTrip = false }) => {
         {trip.status === 'completed' && (
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-600">
-              Completed {format(new Date(trip.endDate), 'MMM yyyy')}
+              Completed {(() => {
+                try {
+                  return format(new Date(trip.endDate), 'MMM yyyy');
+                } catch (error) {
+                  return 'Recently';
+                }
+              })()}
             </span>
             <Link
               to={`/trip/${trip.id}`}

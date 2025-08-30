@@ -1,5 +1,5 @@
-// src/hooks/useAuth.js
-import React, { createContext, useContext, useState, useEffect } from 'react';
+// src/hooks/useAuth.js - Fixed
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authService } from '../services/auth';
 import toast from 'react-hot-toast';
 
@@ -18,25 +18,29 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem('token'));
 
-  useEffect(() => {
-    if (token) {
-      loadUser();
-    } else {
+  const loadUser = useCallback(async () => {
+    if (!token) {
       setLoading(false);
+      return;
     }
-  }, [token]);
 
-  const loadUser = async () => {
     try {
       const userData = await authService.getProfile(token);
       setUser(userData.user);
     } catch (error) {
       console.error('Load user error:', error);
-      logout();
+      // Clear invalid token
+      localStorage.removeItem('token');
+      setToken(null);
+      setUser(null);
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
 
   const login = async (credentials) => {
     try {
