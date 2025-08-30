@@ -1,4 +1,4 @@
-// src/models/ChatHistory.js
+// Fixed src/models/ChatHistory.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -18,7 +18,7 @@ const ChatHistory = sequelize.define('ChatHistory', {
   },
   tripId: {
     type: DataTypes.UUID,
-    allowNull: false,
+    allowNull: true, // Make tripId optional for general chat
     references: {
       model: 'Trips',
       key: 'id'

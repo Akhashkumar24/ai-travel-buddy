@@ -1,4 +1,4 @@
-// src/models/Itinerary.js
+// Fixed src/models/Itinerary.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -34,18 +34,6 @@ const Itinerary = sequelize.define('Itinerary', {
   estimatedCost: {
     type: DataTypes.DECIMAL(10, 2),
     defaultValue: 0
-  },
-  message: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  },
-  response: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  },
-  context: {
-    type: DataTypes.JSONB,
-    defaultValue: {}
   }
 }, {
   timestamps: true,

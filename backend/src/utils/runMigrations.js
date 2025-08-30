@@ -1,4 +1,4 @@
-// src/utils/runMigrations.js
+// Fixed backend/src/utils/runMigrations.js
 const { connectDatabase } = require('./database');
 const logger = require('./logger');
 
@@ -21,4 +21,8 @@ async function runMigrations() {
   }
 }
 
-runMigrations();
+if (require.main === module) {
+  runMigrations();
+}
+
+module.exports = runMigrations;
