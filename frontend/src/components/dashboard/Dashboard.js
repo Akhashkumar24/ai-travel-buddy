@@ -8,7 +8,7 @@ import {
   MapIcon, 
   ClockIcon, 
   CurrencyDollarIcon,
-  SunIcon,  // Changed from WeatherIcon to SunIcon
+  SunIcon,  // Changed from SunIcon to SunIcon
   ChatBubbleLeftRightIcon 
 } from '@heroicons/react/24/outline';
 
