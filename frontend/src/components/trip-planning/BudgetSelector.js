@@ -1,15 +1,15 @@
-// src/components/trip-planning/BudgetSelector.js
+// frontend/src/components/trip-planning/BudgetSelector.js - Fixed version
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 
 const currencies = [
-  { code: 'USD', symbol: ', name: 'US Dollar' },
+  { code: 'USD', symbol: '$', name: 'US Dollar' },
   { code: 'EUR', symbol: '€', name: 'Euro' },
   { code: 'GBP', symbol: '£', name: 'British Pound' },
   { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
   { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
-  { code: 'AUD', symbol: 'A, name: 'Australian Dollar' }
+  { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' }
 ];
 
 const budgetPresets = {

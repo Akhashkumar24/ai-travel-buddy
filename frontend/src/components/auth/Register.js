@@ -1,10 +1,11 @@
-// src/components/auth/Register.js
+// frontend/src/components/auth/Register.js - Fixed version
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../../hooks/useAuth';
 import LoadingSpinner from '../common/LoadingSpinner';
+import toast from 'react-hot-toast';
 
 const Register = () => {
   const navigate = useNavigate();

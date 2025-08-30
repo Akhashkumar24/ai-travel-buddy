@@ -1,4 +1,4 @@
-// src/utils/database.js
+// backend/src/utils/database.js
 const sequelize = require('../config/database');
 const User = require('../models/User');
 const Trip = require('../models/Trip');
@@ -6,7 +6,9 @@ const Itinerary = require('../models/Itinerary');
 const Activity = require('../models/Activity');
 const ChatHistory = require('../models/ChatHistory');
 
-// Define associations
+/**
+ * Define all Sequelize model associations
+ */
 const defineAssociations = () => {
   // User associations
   User.hasMany(Trip, { foreignKey: 'userId', as: 'trips' });
@@ -29,18 +31,26 @@ const defineAssociations = () => {
   ChatHistory.belongsTo(Trip, { foreignKey: 'tripId', as: 'trip' });
 };
 
+/**
+ * Connect to the database and define associations
+ */
 const connectDatabase = async () => {
   try {
     await sequelize.authenticate();
+    console.log('✅ Database connection established successfully.');
+
+    // Define model associations
     defineAssociations();
-    
+
+    // Disable automatic syncing in development to prevent enum conflicts
     if (process.env.NODE_ENV === 'development') {
-      await sequelize.sync({ alter: true });
+      console.log('⚠️ Development mode: Sequelize will NOT auto-sync. Run SQL scripts manually.');
+      // await sequelize.sync({ alter: true }); // Removed to prevent enum errors
     }
-    
+
     return sequelize;
   } catch (error) {
-    console.error('Database connection failed:', error);
+    console.error('❌ Database connection failed:', error);
     throw error;
   }
 };

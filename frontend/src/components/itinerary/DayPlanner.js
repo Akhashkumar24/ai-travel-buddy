@@ -1,4 +1,4 @@
-// src/components/itinerary/DayPlanner.js
+// frontend/src/components/itinerary/DayPlanner.js - Fixed version
 import React from 'react';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
@@ -131,4 +131,4 @@ const DayPlanner = ({ trip, day, itinerary }) => {
   );
 };
 
-export default ItineraryView;
+export default DayPlanner;
