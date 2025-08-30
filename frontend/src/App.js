@@ -1,4 +1,4 @@
-// src/App.js
+// frontend/src/App.js - Fixed to remove logo issues
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -17,6 +17,8 @@ import ItineraryView from './components/itinerary/ItineraryView';
 import Profile from './components/profile/Profile';
 import ChatBot from './components/chat/ChatBot';
 
+// Remove App.css import that's causing issues
+// import './App.css'; // REMOVED
 import './styles/globals.css';
 
 const queryClient = new QueryClient({
@@ -24,7 +26,7 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       retry: 1,
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000,
     },
   },
 });
@@ -34,18 +36,26 @@ const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <LoadingSpinner />;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner size="large" />
+      </div>
+    );
   }
 
   return user ? children : <Navigate to="/login" replace />;
 };
 
-// Public Route Component (redirect if already authenticated)
+// Public Route Component
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <LoadingSpinner />;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner size="large" />
+      </div>
+    );
   }
 
   return user ? <Navigate to="/dashboard" replace /> : children;
