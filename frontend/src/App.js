@@ -1,10 +1,10 @@
-// src/App.js - Redesigned without authentication
+// src/App.js - FIXED VERSION (NO CHATBOT, CLEAN IMPORTS)
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Toaster } from 'react-hot-toast';
 
-// Import components
+// Import components - USING FIXED VERSIONS
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Home from './components/pages/Home';
@@ -12,7 +12,7 @@ import TripPlanner from './components/trip-planning/TripPlanner';
 import ExploreDestinations from './components/pages/ExploreDestinations';
 import TravelTools from './components/pages/TravelTools';
 import AboutPage from './components/pages/About';
-import ChatBot from './components/chat/ChatBot';
+// TEMPORARILY REMOVED: import ChatBot from './components/chat/ChatBot';
 
 import './styles/globals.css';
 
@@ -55,17 +55,14 @@ function App() {
           
           <main className="flex-1">
             <Routes>
-              {/* Main Routes */}
               <Route path="/" element={<Home />} />
               <Route path="/plan-trip" element={<TripPlanner />} />
               <Route path="/explore" element={<ExploreDestinations />} />
               <Route path="/tools" element={<TravelTools />} />
               <Route path="/about" element={<AboutPage />} />
               
-              {/* Default redirect */}
               <Route path="/dashboard" element={<Navigate to="/" replace />} />
               
-              {/* 404 */}
               <Route 
                 path="*" 
                 element={
@@ -91,8 +88,8 @@ function App() {
           
           <Footer />
           
-          {/* Floating Chat Bot */}
-          <ChatBot />
+          {/* TEMPORARILY REMOVED CHATBOT */}
+          {/* <ChatBot /> */}
         </div>
       </Router>
     </QueryClientProvider>

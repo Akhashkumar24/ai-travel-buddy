@@ -1,78 +1,46 @@
-// src/components/pages/Home.js - Beautiful Home Page
+// src/components/pages/Home.js - MINIMAL CLEAN VERSION
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import {
-  SparklesIcon,
-  MapPinIcon,
-  CalendarIcon,
-  CurrencyDollarIcon,
-  GlobeAltIcon,
-  ChatBubbleLeftRightIcon,
-  CloudIcon,
-  LanguageIcon,
-  ArrowRightIcon,
-  PlayIcon
-} from '@heroicons/react/24/outline';
 
 const Home = () => {
   const [currentDestination, setCurrentDestination] = useState(0);
   
   const featuredDestinations = [
-    {
-      name: 'Paris, France',
-      image: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=800&q=80',
-      description: 'City of Light and Romance'
-    },
-    {
-      name: 'Tokyo, Japan',
-      image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80',
-      description: 'Modern Metropolis Meets Tradition'
-    },
-    {
-      name: 'Bali, Indonesia',
-      image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=800&q=80',
-      description: 'Tropical Paradise'
-    },
-    {
-      name: 'New York, USA',
-      image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&q=80',
-      description: 'The City That Never Sleeps'
-    }
+    { name: 'Paris, France', description: 'City of Light and Romance' },
+    { name: 'Tokyo, Japan', description: 'Modern Metropolis Meets Tradition' },
+    { name: 'Bali, Indonesia', description: 'Tropical Paradise' },
+    { name: 'New York, USA', description: 'The City That Never Sleeps' }
   ];
 
   const features = [
     {
-      icon: SparklesIcon,
       title: 'AI-Powered Planning',
       description: 'Get personalized itineraries created by advanced AI based on your preferences and interests.',
-      color: 'from-purple-500 to-pink-500'
+      color: 'bg-purple-500'
     },
     {
-      icon: MapPinIcon,
       title: 'Smart Recommendations',
       description: 'Discover hidden gems and popular attractions tailored to your travel style.',
-      color: 'from-blue-500 to-cyan-500'
+      color: 'bg-blue-500'
     },
     {
-      icon: ChatBubbleLeftRightIcon,
       title: '24/7 Travel Assistant',
       description: 'Chat with your AI travel companion anytime for instant help and suggestions.',
-      color: 'from-green-500 to-emerald-500'
+      color: 'bg-green-500'
     },
     {
-      icon: CurrencyDollarIcon,
       title: 'Budget Optimization',
       description: 'Keep your expenses on track with smart budgeting and cost predictions.',
-      color: 'from-yellow-500 to-orange-500'
+      color: 'bg-yellow-500'
     }
   ];
 
   const tools = [
-    { icon: CloudIcon, name: 'Weather Forecast', description: 'Real-time weather updates' },
-    { icon: CurrencyDollarIcon, name: 'Currency Converter', description: 'Live exchange rates' },
-    { icon: LanguageIcon, name: 'Language Translator', description: 'Instant translations' },
-    { icon: MapPinIcon, name: 'Local Explorer', description: 'Discover nearby attractions' }
+    { name: 'Weather Forecast', description: 'Real-time weather updates' },
+    { name: 'Currency Converter', description: 'Live exchange rates' },
+    { name: 'Language Translator', description: 'Instant translations' },
+    { name: 'Local Explorer', description: 'Discover nearby attractions' }
   ];
 
   // Auto-rotate destinations
@@ -85,33 +53,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background with animated destinations */}
-        <div className="absolute inset-0 z-0">
-          {featuredDestinations.map((dest, index) => (
-            <motion.div
-              key={dest.name}
-              className="absolute inset-0"
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ 
-                opacity: index === currentDestination ? 0.3 : 0,
-                scale: index === currentDestination ? 1 : 1.1
-              }}
-              transition={{ duration: 1.5, ease: 'easeInOut' }}
-            >
-              <img 
-                src={dest.image} 
-                alt={dest.name}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-purple-900/50" />
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Hero Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Hero Section - NO BACKGROUND IMAGES */}
+      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -119,20 +63,14 @@ const Home = () => {
             className="space-y-8"
           >
             <div className="space-y-4">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium"
-              >
-                <SparklesIcon className="w-4 h-4" />
-                <span>Powered by Advanced AI</span>
-              </motion.div>
+              <div className="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium">
+                Powered by Advanced AI
+              </div>
               
               <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
                 Your Perfect Trip
                 <br />
-                <span className="bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                <span className="text-yellow-300">
                   Starts Here
                 </span>
               </h1>
@@ -144,98 +82,62 @@ const Home = () => {
             </div>
 
             {/* Current Destination Display */}
-            <motion.div
-              key={currentDestination}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-white/80 text-lg"
-            >
-              Now exploring: <span className="font-semibold text-yellow-400">
+            <div className="text-white/80 text-lg">
+              Now exploring: <span className="font-semibold text-yellow-300">
                 {featuredDestinations[currentDestination].name}
               </span>
               <br />
               <span className="text-sm">{featuredDestinations[currentDestination].description}</span>
-            </motion.div>
+            </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <Link
                 to="/plan-trip"
-                className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-purple-500/25 flex items-center space-x-2"
+                className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl"
               >
-                <span>Start Planning Now</span>
-                <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Start Planning Now
               </Link>
               
-              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white/20 flex items-center space-x-2">
-                <PlayIcon className="w-5 h-5" />
-                <span>Watch Demo</span>
+              <button className="border-2 border-white text-white hover:bg-white hover:text-purple-600 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300">
+                Watch Demo
               </button>
             </div>
           </motion.div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/70 rounded-full mt-2"></div>
-          </div>
-        </motion.div>
       </section>
 
       {/* Features Section */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Why Choose AI Travel Buddy?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Experience the future of travel planning with our intelligent features designed to make your journey extraordinary.
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <motion.div
+              <div
                 key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
+                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
               >
-                <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon className="w-8 h-8 text-white" />
-                </div>
+                <div className={`w-4 h-4 ${feature.color} rounded mb-6`}></div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Tools Preview Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Powerful Travel Tools
             </h2>
@@ -244,27 +146,22 @@ const Home = () => {
             </p>
             <Link
               to="/tools"
-              className="inline-flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
             >
-              <span>Explore All Tools</span>
-              <ArrowRightIcon className="w-4 h-4" />
+              Explore All Tools
             </Link>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {tools.map((tool, index) => (
-              <motion.div
+              <div
                 key={tool.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
                 className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300"
               >
-                <tool.icon className="w-10 h-10 text-blue-600 mb-4" />
+                <div className="w-4 h-4 bg-blue-500 rounded mb-4"></div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{tool.name}</h3>
                 <p className="text-gray-600 text-sm">{tool.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -273,13 +170,7 @@ const Home = () => {
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
+          <div className="space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Ready for Your Next Adventure?
             </h2>
@@ -300,7 +191,7 @@ const Home = () => {
                 Explore Destinations
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>
