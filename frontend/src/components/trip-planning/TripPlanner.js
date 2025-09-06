@@ -1,4 +1,4 @@
-// src/components/trip-planning/TripPlanner.js - Enhanced Multi-step Trip Planner
+// src/components/trip-planning/TripPlanner.js - Fixed Syntax Error
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -151,6 +151,7 @@ const TripPlanner = () => {
   };
 
   const CurrentStepComponent = steps[currentStep].component;
+  const currentStepIcon = steps[currentStep].icon;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
@@ -168,7 +169,7 @@ const TripPlanner = () => {
           <div className="relative">
             <div className="flex items-center justify-between">
               {steps.map((step, index) => {
-                const Icon = step.icon;
+                const StepIcon = step.icon;
                 const isCompleted = index < currentStep;
                 const isCurrent = index === currentStep;
                 const isValid = isStepValid(index);
@@ -191,7 +192,7 @@ const TripPlanner = () => {
                       {isCompleted ? (
                         <CheckIcon className="w-6 h-6" />
                       ) : (
-                        <Icon className="w-6 h-6" />
+                        <StepIcon className="w-6 h-6" />
                       )}
                     </motion.div>
                     <div className="mt-2 text-center">
@@ -233,7 +234,7 @@ const TripPlanner = () => {
             <div className={`bg-gradient-to-r ${steps[currentStep].color} p-8 text-white`}>
               <div className="flex items-center space-x-4">
                 <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
-                  <steps[currentStep].icon className="w-8 h-8" />
+                  {React.createElement(currentStepIcon, { className: "w-8 h-8" })}
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold">{steps[currentStep].title}</h2>
